@@ -1,4 +1,9 @@
+#pragma warning disable IDE0005
+global using LabApi.Features.Wrappers;
 global using Logger = LabApi.Features.Console.Logger;
+global using UnityEngine;
+global using Random = UnityEngine.Random;
+#pragma warning restore IDE0005
 using LabApi.Events.CustomHandlers;
 using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
