@@ -72,5 +72,29 @@ internal sealed class Config {
 		ItemType.Painkillers,
 		ItemType.SCP1344,
 		ItemType.AntiSCP207,
+		ItemType.GunFRMG0,
+		ItemType.GunA7,
+		ItemType.Lantern,
+		ItemType.Snowball,
+		ItemType.Coal,
+		ItemType.SpecialCoal,
+		ItemType.SCP1507Tape,
+		ItemType.DebugRagdollMover,
+		ItemType.GunSCP127,
+		ItemType.KeycardCustomTaskForce,
+		ItemType.KeycardCustomSite02,
+		ItemType.KeycardCustomManagement,
+		ItemType.KeycardCustomMetalCase,
+		ItemType.MarshmallowItem,
+		ItemType.SCP1509,
+		ItemType.Scp021J,
 	];
+	public float? Scp939HealthOverride { get; set; }
+	public float? Scp173HealthOverride { get; set; }
+	public float? Scp096HealthOverride { get; set; }
+	public float? Scp049HealthOverride { get; set; }
+	public float? Scp0492HealthOverride { get; set; }
+	public float? Scp3114HealthOverride { get; set; }
+	public float? Scp106HealthOverride { get; set; }
+
 }
