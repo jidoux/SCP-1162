@@ -6,9 +6,10 @@ namespace SCP1162;
 
 internal static class PlayerSpawnHelpers {
 	public static void HandlePlayerSpawnBehavior(PlayerSpawnedEventArgs ev) {
-		const float oddsToReplaceAnScpWithSkeleton = 0.1f;
-		if (ev.Player.Team != Team.SCPs && RandomCheck(0.33f)) {
-			ev.Player.Inventory.ServerAddItem(ItemType.Painkillers, InventorySystem.Items.ItemAddReason.AdminCommand);
+		const float oddsToReplaceAnScpWithSkeleton = 0.08f;
+
+		if (Random.value < 0.1f) {
+			ev.Player.AddItem(ItemType.Painkillers);
 		}
 
 		if (ev.Player.Role == RoleTypeId.ClassD) {
@@ -18,6 +19,9 @@ internal static class PlayerSpawnHelpers {
 			TryGiveScientistRandomItems(ev.Player);
 		}
 		if (ev.Player.Team == Team.SCPs) {
+			if (AllScpSpawnBehavior(ev.Player)) {
+				return;
+			}
 			if ((ev.Player.Role == RoleTypeId.Scp106 || ev.Player.Role == RoleTypeId.Scp049 || ev.Player.Role == RoleTypeId.Scp939) && RandomCheck(oddsToReplaceAnScpWithSkeleton)) {
 				ev.Player.SetRole(RoleTypeId.Scp3114, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.All);
 			}
@@ -53,12 +57,36 @@ internal static class PlayerSpawnHelpers {
 		}
 	}
 
-	private static void TryGiveClassDRandomItems(Player player) {
-		if (RandomCheck(0.5f)) {
-			player.Inventory.ServerAddItem(ItemType.Coin, InventorySystem.Items.ItemAddReason.AdminCommand);
+	// Returns bool to signal that it changed something and we should stop manipulating SCP spawn behavior.
+	private static bool AllScpSpawnBehavior(Player player) {
+		return (ScpReAssignPreCheck(player) || ScpReAssignPostCheck(player));
+	}
+
+	private static bool ScpReAssignPostCheck(Player player) {
+		if (Player.List.Any(x => x.Role == RoleTypeId.Scp173 && x != player)) {
+			player.SetRole(RoleTypeId.ClassD, RoleChangeReason.LateJoin, RoleSpawnFlags.All);
+			return true;
 		}
+		return false;
+	}
+
+	private static bool ScpReAssignPreCheck(Player player) {
+		bool didChangeSomething = false;
+		if (player.Role == RoleTypeId.Scp173) {
+			foreach (Player currPlayer in Player.List.Where(x => x.Team == Team.SCPs && Random.value < 0.9f)) {
+				currPlayer.SetRole(RoleTypeId.ClassD, RoleChangeReason.LateJoin, RoleSpawnFlags.All);
+				didChangeSomething = true;
+			}
+		}
+		return didChangeSomething;
+	}
+
+	private static void TryGiveClassDRandomItems(Player player) {
 		if (RandomCheck(0.01f)) {
 			player.Inventory.ServerAddItem(ItemType.Flashlight, InventorySystem.Items.ItemAddReason.AdminCommand);
+		}
+		if (RandomCheck(0.1f)) {
+			player.Inventory.ServerAddItem(ItemType.Coin, InventorySystem.Items.ItemAddReason.AdminCommand);
 		}
 		if (RandomCheck(0.02f)) {
 			player.Inventory.ServerAddItem(ItemType.SCP018, InventorySystem.Items.ItemAddReason.AdminCommand);

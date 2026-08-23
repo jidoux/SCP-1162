@@ -1,6 +1,7 @@
 using InventorySystem;
 using InventorySystem.Items;
 using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Events.Arguments.ServerEvents;
 using LabApi.Events.CustomHandlers;
 
 namespace SCP1162;
@@ -30,6 +31,12 @@ internal sealed class EventHandlers : CustomEventsHandler {
 		}
 		catch (Exception ex) {
 			Debug.LogException(ex);
+		}
+	}
+
+	public override void OnServerItemSpawning(ItemSpawningEventArgs ev) {
+		if (Plugin.Singleton.Config.ShouldRemoveZoneManagers && ev.ItemType == ItemType.KeycardZoneManager) {
+			ev.IsAllowed = false;
 		}
 	}
 }

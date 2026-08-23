@@ -96,5 +96,6 @@ internal sealed class Config {
 	public float? Scp0492HealthOverride { get; set; }
 	public float? Scp3114HealthOverride { get; set; }
 	public float? Scp106HealthOverride { get; set; }
+	public bool ShouldRemoveZoneManagers { get; set; }
 
 }
