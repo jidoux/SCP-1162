@@ -12,7 +12,7 @@
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<OutputType>Library</OutputType>
 		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>SCP-1162</RootNamespace>
+		<RootNamespace>SCP1162</RootNamespace>
 		<AssemblyName>SCP-1162</AssemblyName>
 		<LangVersion>12.0</LangVersion>
 		<FileAlignment>512</FileAlignment>
@@ -33,6 +33,11 @@
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
 	</ItemGroup>
+	<!-- Few notes, for my own benefit: I found these DLLs at the following path:
+	C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed
+	and I added an user variable environment variable of SL_REFERENCES. Then I copied some DLLs I needed and
+	some that were just recommended; I forget if I copied LabAPI repo or just copied TtroubleTT tutorial to
+	get the exact DLLs. -->
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$(SL_REFERENCES)\Assembly-CSharp.dll</HintPath>

@@ -89,13 +89,4 @@ internal sealed class Config {
 		ItemType.SCP1509,
 		ItemType.Scp021J,
 	];
-	public float? Scp939HealthOverride { get; set; }
-	public float? Scp173HealthOverride { get; set; }
-	public float? Scp096HealthOverride { get; set; }
-	public float? Scp049HealthOverride { get; set; }
-	public float? Scp0492HealthOverride { get; set; }
-	public float? Scp3114HealthOverride { get; set; }
-	public float? Scp106HealthOverride { get; set; }
-	public bool ShouldRemoveZoneManagers { get; set; }
-
 }

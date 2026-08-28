@@ -1,10 +1,6 @@
 namespace SCP1162;
 
 internal static class PeanutSpawnHelpers {
-	public static bool IsApproximate(Quaternion q1, Quaternion q2, float precision = 0.0000004f) {
-		return Mathf.Abs(Quaternion.Dot(q1, q2)) >= 1 - precision;
-	}
-
 	public static bool IsPlayerInOldPeanutSpawn(Vector3 playerPosition) {
 		Door scp173GateInLight = GetScp173GateInLight();
 		Vector3? roomCenterLookupResult = FindOldPeanutSpawnCenter(scp173GateInLight);
@@ -31,13 +27,13 @@ internal static class PeanutSpawnHelpers {
 		return positionIsValid;
 	}
 
-	public static Door GetScp173GateInLight() {
+	private static Door GetScp173GateInLight() {
 		Door scp173Gate = Map.Doors.FirstOrDefault(x => x.DoorName == LabApi.Features.Enums.DoorName.Lcz173Gate)
 			?? throw new UnityException("Could not find SCP-173 gate.");
 		return scp173Gate;
 	}
 
-	public static Vector3? FindOldPeanutSpawnCenter(Door? scp173GateInLight = null) {
+	private static Vector3? FindOldPeanutSpawnCenter(Door? scp173GateInLight = null) {
 		scp173GateInLight ??= GetScp173GateInLight();
 		// All these were proven to work on 8/9/2026 - the strategy is to get the old SCP-173 gate in light,
 		// then for all 4 possible rotations get the offset of that door to the center of the room, and then
@@ -58,5 +54,9 @@ internal static class PeanutSpawnHelpers {
 			roomCenter = scp173GateInLight.Position + offsetKVP.Value;
 			return roomCenter;
 		}
+	}
+
+	private static bool IsApproximate(Quaternion q1, Quaternion q2, float precision = 0.0000004f) {
+		return Mathf.Abs(Quaternion.Dot(q1, q2)) >= 1 - precision;
 	}
 }
