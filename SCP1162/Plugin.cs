@@ -34,6 +34,9 @@ internal sealed class Plugin : Plugin<Config> {
 	public override void Enable() {
 		Singleton = this;
 		CustomHandlersManager.RegisterEventsHandler(Events);
+		if (!Singleton.Config.UseHeavyContainmentSpawn && !Singleton.Config.UseLightContainmentSpawn) {
+			Logger.Error($"You have both {nameof(Singleton.Config.UseHeavyContainmentSpawn)} and {nameof(Singleton.Config.UseLightContainmentSpawn)} set to false... so this mod just isn't gonna work.");
+		}
 	}
 
 	public override void Disable() {

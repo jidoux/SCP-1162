@@ -1,7 +1,23 @@
+using LabApi.Features.Extensions;
+using PlayerRoles;
+
 namespace SCP1162;
 
 internal static class PeanutSpawnHelpers {
-	public static bool IsPlayerInOldPeanutSpawn(Vector3 playerPosition) {
+	public static bool IsPlayerInPeanutSpawn(Vector3 playerPosition) {
+		if (Plugin.Singleton.Config.UseHeavyContainmentSpawn && IsInNewPeanutSpawn(playerPosition)) {
+			return true;
+		}
+		if (Plugin.Singleton.Config.UseLightContainmentSpawn && IsInOldPeanutSpawn(playerPosition)) {
+			return true;
+		}
+		return false;
+	}
+
+	private static bool IsInNewPeanutSpawn(Vector3 playerPosition)
+		=> RoleTypeId.Scp173.TryGetRandomSpawnPoint(out Vector3 peanutSpawnpoint, out float _) && Vector3.Distance(playerPosition, peanutSpawnpoint) <= 7f;
+
+	private static bool IsInOldPeanutSpawn(Vector3 playerPosition) {
 		Door scp173GateInLight = GetScp173GateInLight();
 		Vector3? roomCenterLookupResult = FindOldPeanutSpawnCenter(scp173GateInLight);
 		Vector3 roomCenter;

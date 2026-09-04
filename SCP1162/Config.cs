@@ -3,7 +3,9 @@ namespace SCP1162;
 internal sealed class Config {
 	public string ItemDropMessage { get; set; } = "<i>You try to drop the item through <color=yellow>SCP-1162</color> to get another...</i>";
 	public float ItemDropMessageDuration { get; set; } = 3f;
-	public List<ItemType> Chances { get; set; } =
+	public bool UseLightContainmentSpawn { get; set; } = true;
+	public bool UseHeavyContainmentSpawn { get; set; } = true;
+	public ItemType[] Chances { get; set; } =
 	[
 		ItemType.None,
 		ItemType.None,
