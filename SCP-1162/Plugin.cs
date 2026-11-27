@@ -21,7 +21,7 @@ internal sealed class Plugin : Plugin<Config> {
 	public override string Author => "burnout__";
 
 	// The current version of the plugin
-	public override Version Version => new(1, 0, 0, 0);
+	public override Version Version => new(1, 0, 0, 1);
 
 	// The required version of LabAPI (usually the version the plugin was built with)
 	public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
